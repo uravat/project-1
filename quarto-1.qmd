@@ -1,8 +1,35 @@
 ---
 title: "Quarto 1"
 format: html
+execute: 
+  echo: false
 ---
 
-I am testing the watching
 
-**K**
+```{r}
+suppressPackageStartupMessages(library(tidyverse))
+library(palmerpenguins)
+```
+
+
+```{r}
+# Remove rows with missing values for clean plotting
+penguins_clean <- penguins %>% drop_na()
+
+# Create the plot
+ggplot(penguins_clean, aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
+  geom_point(alpha = 0.8, size = 3) +
+  labs(
+    title = "Flipper Length vs Body Mass of Penguins",
+    subtitle = "Heavier penguins tend to have longer flippers, with differences across species.",
+    caption = "Source: palmerpenguins R package",
+    x = "Flipper Length (mm)",
+    y = "Body Mass (g)",
+    color = "Species"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    plot.caption = element_text(size = 10, face = "italic")
+  )
+```
